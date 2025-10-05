@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Append to 1.txt</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 40px; }
+    input, button { font-size: 16px; padding: 8px; }
+    #message { margin-top: 20px; }
+  </style>
+</head>
+<body>
+  <input type="text" id="contentInput" placeholder="Enter text to add to 1.txt">
+  <button id="addBtn">Add to File</button>
+  <div id="message"></div>
+  <script>
+    document.getElementById('addBtn').onclick = async function() {
+      const content = document.getElementById('contentInput').value.trim();
+      if (!content) {
+        document.getElementById('message').textContent = 'Please enter some text!';
+        return;
+      }
+      const response = await fetch('/append-file', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ content })
+      });
+      const result = await response.json();
+      document.getElementById('message').textContent = result.message;
+      document.getElementById('contentInput').value = '';
+    };
+  </script>
+</body>
+</html>
