@@ -1,6 +1,0 @@
-This is the content of test.txtyes
-no
-mart
-okay
-na
-yes
